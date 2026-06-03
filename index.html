@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusVeritas — Multichain Truth Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0e1a;
+  --bg2:#13152a;
+  --bg3:#1a1d35;
+  --border:#ffffff18;
+  --border2:#ffffff28;
+  --purple:#7c5cbf;
+  --purple2:#a07de0;
+  --cyan:#4fc3f7;
+  --silver:#c0c8e0;
+  --text:#e8eaf6;
+  --muted:#8890b0;
+  --green:#1D9E75;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh}
+.page{max-width:900px;margin:0 auto;padding:3rem 2rem}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4rem;flex-wrap:wrap;gap:1rem}
+.logo-wrap{display:flex;align-items:center;gap:1rem}
+.logo-img{width:64px;height:64px;object-fit:contain}
+.logo-text{font-family:'Space Mono',monospace}
+.logo-name{font-size:20px;font-weight:700;letter-spacing:1px;color:#fff}
+.logo-sub{font-size:11px;color:var(--purple2);letter-spacing:2px;margin-top:2px}
+.badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-family:'Space Mono',monospace;font-size:11px;padding:4px 10px;border-radius:4px;border:1px solid var(--border2);color:var(--muted)}
+.hero{text-align:center;padding:3rem 0 4rem;border-bottom:1px solid var(--border)}
+.hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--purple2);margin-bottom:1.5rem}
+.hero h1{font-size:42px;font-weight:300;line-height:1.2;margin-bottom:1rem;letter-spacing:-1px}
+.hero h1 strong{font-weight:500;color:#fff}
+.hero h1 em{font-style:normal;color:var(--purple2)}
+.hero p{font-size:16px;color:var(--muted);max-width:600px;margin:0 auto 1rem;line-height:1.8}
+.hero-chain{font-size:14px;color:var(--purple2);margin-bottom:2rem;font-style:italic}
+.hero-api{display:inline-block;font-family:'Space Mono',monospace;font-size:13px;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:10px 20px;color:var(--cyan)}
+.status-block{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:1.5rem 2rem;margin:2rem 0}
+.status-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--purple);text-transform:uppercase;margin-bottom:1rem}
+.status-intro{font-size:14px;color:var(--muted);margin-bottom:1.25rem;line-height:1.7}
+.status-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.status-col h4{font-size:12px;font-family:'Space Mono',monospace;color:var(--green);margin-bottom:8px;letter-spacing:1px}
+.status-col h4.focus{color:var(--purple2)}
+.status-col ul{list-style:none;padding:0}
+.status-col ul li{font-size:13px;color:var(--muted);padding:3px 0;padding-left:16px;position:relative}
+.status-col ul li::before{content:'•';position:absolute;left:0;color:var(--green)}
+.status-col ul li.focus-item::before{color:var(--purple2)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:3rem 0;border-bottom:1px solid var(--border)}
+.stat{text-align:center}
+.stat-val{font-family:'Space Mono',monospace;font-size:32px;font-weight:700;color:var(--purple2)}
+.stat-label{font-size:13px;color:var(--muted);margin-top:4px}
+.section{padding:3rem 0;border-bottom:1px solid var(--border)}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--purple);text-transform:uppercase;margin-bottom:1.5rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;transition:border-color 0.2s}
+.card:hover{border-color:var(--border2)}
+.card-icon{font-size:22px;margin-bottom:12px;color:var(--purple2)}
+.card h3{font-size:14px;font-weight:500;margin-bottom:6px;color:#fff}
+.card p{font-size:13px;color:var(--muted);line-height:1.6}
+.risk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.risk{border-radius:8px;padding:14px;text-align:center;border:1px solid transparent}
+.risk-low{background:#0a1f15;border-color:#1D9E7540}
+.risk-low .risk-class{color:#1D9E75}
+.risk-med{background:#1f1800;border-color:#EF9F2740}
+.risk-med .risk-class{color:#EF9F27}
+.risk-high{background:#1f0f00;border-color:#F0997B40}
+.risk-high .risk-class{color:#F0997B}
+.risk-crit{background:#1f0505;border-color:#E24B4A40}
+.risk-crit .risk-class{color:#E24B4A}
+.risk-class{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;display:block;margin-bottom:6px}
+.risk-score{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;display:block;color:#fff}
+.risk-range{font-size:11px;color:var(--muted);display:block;margin-top:4px}
+.risk-action{font-size:12px;margin-top:6px;display:block}
+.api-block{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem;font-family:'Space Mono',monospace;font-size:12px;line-height:2}
+.api-method{color:var(--cyan)}
+.api-path{color:#fff}
+.api-key{color:var(--purple2)}
+.api-val{color:#a8d8a0}
+.api-str{color:#f9c74f}
+.chains{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
+.chain{font-family:'Space Mono',monospace;font-size:11px;padding:5px 12px;border-radius:4px;background:var(--bg3);border:1px solid var(--border2);color:var(--silver)}
+.chain.future{opacity:0.45;border-style:dashed}
+.roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.phase{border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.phase.active{border-color:var(--green);background:var(--bg2)}
+.phase.designed{border-color:var(--purple);opacity:0.8}
+.phase.planned{opacity:0.5}
+.phase-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--purple2);margin-bottom:6px}
+.phase-title{font-size:13px;font-weight:500;color:#fff;margin-bottom:4px}
+.phase-status{font-family:'Space Mono',monospace;font-size:10px}
+.phase.active .phase-status{color:var(--green)}
+.phase.designed .phase-status{color:var(--purple2)}
+.phase.planned .phase-status{color:var(--muted)}
+.phase-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:6px;vertical-align:2px}
+.eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.eco-card{border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.eco-card.featured{border-color:var(--purple);background:var(--bg2)}
+.eco-name{font-size:14px;font-weight:500;color:#fff;margin-bottom:4px}
+.eco-desc{font-size:12px;color:var(--muted)}
+.eco-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--purple2);margin-bottom:8px;letter-spacing:1px}
+.footer{padding-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer p{font-size:13px;color:var(--muted)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-family:'Space Mono',monospace;font-size:12px;color:var(--purple2);text-decoration:none}
+.footer-links a:hover{color:#fff}
+@media(max-width:600px){
+  .hero h1{font-size:28px}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .risk-grid{grid-template-columns:repeat(2,1fr)}
+  .eco-grid{grid-template-columns:1fr}
+  .status-cols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="logo-wrap">
+      <img src="logo.png" alt="NexusVeritas logo" class="logo-img">
+      <div class="logo-text">
+        <div class="logo-name">NEXUSVERITAS</div>
+        <div class="logo-sub">MULTICHAIN SECURITY</div>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">Solana First</span>
+      <span class="badge">Active Development</span>
+      <span class="badge">Veritas Labs</span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-eyebrow">NEXUSVERITAS v2.0</div>
+    <h1>Know the <em>real risk</em> of any token<br><strong>before you trade.</strong></h1>
+    <p>Real-time multichain token security engine. Behavioral analysis, smart contract simulation, visual fake detection — unified into one deterministic risk score.</p>
+    <p class="hero-chain">Launching on Solana. Designed for future multichain expansion.</p>
+    <div class="hero-api">GET /api/risk/:chain/:address</div>
+  </div>
+
+  <div class="status-block">
+    <div class="status-label">Project Status</div>
+    <p class="status-intro">NexusVeritas is currently under active development. Architecture, threat model, and risk specification are complete. Solana Risk Engine implementation is in progress.</p>
+    <div class="status-cols">
+      <div class="status-col">
+        <h4>Completed</h4>
+        <ul>
+          <li>Architecture & system design</li>
+          <li>Threat model</li>
+          <li>Risk rules specification</li>
+          <li>API specification</li>
+          <li>IChainAdapter interface</li>
+          <li>SolanaAdapter skeleton</li>
+          <li>Burner Registry</li>
+        </ul>
+      </div>
+      <div class="status-col">
+        <h4 class="focus">Current Focus</h4>
+        <ul>
+          <li class="focus-item">Solana Risk Engine implementation</li>
+          <li class="focus-item">API MVP</li>
+          <li class="focus-item">Token age analysis</li>
+          <li class="focus-item">Browser Extension prototype</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-val">v2.0</div>
+      <div class="stat-label">Risk Engine Spec</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">4</div>
+      <div class="stat-label">Risk classes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">5</div>
+      <div class="stat-label">Security layers</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Core capabilities</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⛓</div>
+        <h3>Multichain-agnostic core</h3>
+        <p>Unified risk format for Solana, Ethereum, Base, and BSC. One API, all chains.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Universal risk engine</h3>
+        <p>Deterministic math. Classes LOW → CRITICAL. Hard Refuse on score 85+.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔬</div>
+        <h3>Solana behavioral engine</h3>
+        <p>Jito Block-0 detection, burner clusters, sniper farms — native Solana signals.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👁</div>
+        <h3>Visual security layer</h3>
+        <p>pHash look-alike detection. Hamming distance scoring to catch fake token logos.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>EVM atomic simulator</h3>
+        <p>Buy → approve → sell simulation in one atomic context. Real tax exposure revealed.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛡</div>
+        <h3>NexusVeritas Shield</h3>
+        <p>Chrome extension with UX security overlay. Blocks CRITICAL tokens at browser level.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Risk classification</div>
+    <div class="risk-grid">
+      <div class="risk risk-low">
+        <span class="risk-class">LOW</span>
+        <span class="risk-score">0–29</span>
+        <span class="risk-range">Allowed</span>
+        <span class="risk-action" style="color:#1D9E75">✓ Proceed</span>
+      </div>
+      <div class="risk risk-med">
+        <span class="risk-class">MEDIUM</span>
+        <span class="risk-score">30–59</span>
+        <span class="risk-range">Warning</span>
+        <span class="risk-action" style="color:#EF9F27">⚠ Caution</span>
+      </div>
+      <div class="risk risk-high">
+        <span class="risk-class">HIGH</span>
+        <span class="risk-score">60–84</span>
+        <span class="risk-range">Strong warning</span>
+        <span class="risk-action" style="color:#F0997B">⛔ Risk high</span>
+      </div>
+      <div class="risk risk-crit">
+        <span class="risk-class">CRITICAL</span>
+        <span class="risk-score">85–100</span>
+        <span class="risk-range">Hard refuse</span>
+        <span class="risk-action" style="color:#E24B4A">✗ Blocked</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">API specification</div>
+    <div class="api-block">
+      <span class="api-method">GET </span><span class="api-path">/api/risk/:chain/:address</span><br><br>
+      {<br>
+      &nbsp;&nbsp;<span class="api-key">"score"</span>: <span class="api-val">72</span>,<br>
+      &nbsp;&nbsp;<span class="api-key">"class"</span>: <span class="api-str">"HIGH"</span>,<br>
+      &nbsp;&nbsp;<span class="api-key">"reasons"</span>: [<span class="api-str">"LP unlocked"</span>, <span class="api-str">"High sell tax"</span>],<br>
+      &nbsp;&nbsp;<span class="api-key">"meta"</span>: { ... },<br>
+      &nbsp;&nbsp;<span class="api-key">"behavior"</span>: { ... },<br>
+      &nbsp;&nbsp;<span class="api-key">"visual"</span>: { ... }<br>
+      }
+    </div>
+    <div class="chains">
+      <span class="chain">solana</span>
+      <span class="chain future">ethereum</span>
+      <span class="chain future">base</span>
+      <span class="chain future">bsc</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Roadmap</div>
+    <div class="roadmap">
+      <div class="phase active">
+        <div class="phase-num">PHASE 1</div>
+        <div class="phase-title"><span class="phase-dot"></span>Solana core + API</div>
+        <div class="phase-status">Active Development</div>
+      </div>
+      <div class="phase designed">
+        <div class="phase-num">PHASE 2</div>
+        <div class="phase-title">Visual security layer</div>
+        <div class="phase-status">Designed</div>
+      </div>
+      <div class="phase designed">
+        <div class="phase-num">PHASE 3</div>
+        <div class="phase-title">Chrome extension</div>
+        <div class="phase-status">Designed</div>
+      </div>
+      <div class="phase planned">
+        <div class="phase-num">PHASE 4</div>
+        <div class="phase-title">EVM atomic simulator</div>
+        <div class="phase-status">Planned</div>
+      </div>
+      <div class="phase planned">
+        <div class="phase-num">PHASE 5</div>
+        <div class="phase-title">Full multichain core</div>
+        <div class="phase-status">Planned</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Ecosystem</div>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <div class="eco-tag">PROTOCOL</div>
+        <div class="eco-name">CryptaVeritas</div>
+        <div class="eco-desc">Signal verification (Commit-Reveal). Making manipulation mathematically impossible.</div>
+      </div>
+      <div class="eco-card featured">
+        <div class="eco-tag">INFRASTRUCTURE</div>
+        <div class="eco-name">NexusVeritas</div>
+        <div class="eco-desc">Multichain security infrastructure. Real-time risk engine for any token on any chain.</div>
+      </div>
+      <div class="eco-card">
+        <div class="eco-tag">TOKEN</div>
+        <div class="eco-name">$CRYSIG</div>
+        <div class="eco-desc">Single access token for the entire Veritas ecosystem. Solana SPL.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Veritas Labs</p>
+    <div class="footer-links">
+      <a href="https://t.me/cryptaveritas">Telegram</a>
+      <a href="https://github.com/cryptaveritas">GitHub</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
