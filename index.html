@@ -3,40 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NexusVeritas — Solana Security Engine</title>
+<title>NexusVeritas — Solana Risk Intelligence Engine</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0d0e1a;--bg2:#13152a;--bg3:#1a1d35;
-  --border:#ffffff18;--border2:#ffffff28;
+  --bg:#000000;--bg2:#0d0e1a;--bg3:#13152a;
+  --border:#ffffff15;--border2:#ffffff25;
   --purple:#7c5cbf;--purple2:#a07de0;
   --cyan:#4fc3f7;--silver:#c0c8e0;
   --text:#e8eaf6;--muted:#8890b0;--green:#1D9E75;
 }
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh}
-.page{max-width:900px;margin:0 auto;padding:3rem 2rem}
-.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4rem;flex-wrap:wrap;gap:1rem}
-.logo-wrap{display:flex;align-items:center;gap:1rem}
-.logo-img{width:64px;height:64px;object-fit:contain}
-.logo-text{font-family:'Space Mono',monospace}
-.logo-name{font-size:20px;font-weight:700;letter-spacing:1px;color:#fff}
-.logo-sub{font-size:11px;color:var(--purple2);letter-spacing:2px;margin-top:2px}
-.badges{display:flex;gap:8px;flex-wrap:wrap}
+.page{max-width:960px;margin:0 auto;padding:0 2rem 4rem}
+
+/* HERO */
+.hero{text-align:center;padding:4rem 0 3rem;border-bottom:1px solid var(--border)}
+.hero-logo{width:100%;max-width:700px;margin:0 auto 2.5rem;display:block}
+.hero-tagline{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+.hero-tagline span{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2px;color:var(--silver)}
+.hero-tagline span::before{content:'—';margin-right:8px;color:var(--purple2)}
+.hero-api{display:inline-block;font-family:'Space Mono',monospace;font-size:13px;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:10px 20px;color:var(--cyan)}
+
+/* BADGES */
+.badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:2rem}
 .badge{font-family:'Space Mono',monospace;font-size:11px;padding:4px 10px;border-radius:4px;border:1px solid var(--border2);color:var(--muted)}
 .badge.active{border-color:var(--green);color:var(--green)}
-.hero{text-align:center;padding:3rem 0 4rem;border-bottom:1px solid var(--border)}
-.hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--purple2);margin-bottom:1.5rem}
-.hero h1{font-size:42px;font-weight:300;line-height:1.2;margin-bottom:1rem;letter-spacing:-1px}
-.hero h1 strong{font-weight:500;color:#fff}
-.hero h1 em{font-style:normal;color:var(--purple2)}
-.hero p{font-size:16px;color:var(--muted);max-width:600px;margin:0 auto 1rem;line-height:1.8}
-.hero-chain{font-size:14px;color:var(--purple2);margin-bottom:2rem;font-style:italic}
-.hero-api{display:inline-block;font-family:'Space Mono',monospace;font-size:13px;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:10px 20px;color:var(--cyan)}
+
+/* MISSION */
+.mission{background:var(--bg2);border-left:3px solid var(--purple2);border-radius:0 8px 8px 0;padding:1.5rem 2rem;margin:2.5rem 0}
+.mission p{font-size:15px;color:var(--muted);line-height:1.8}
+.mission p + p{margin-top:0.75rem}
+.mission strong{color:var(--text)}
+
+/* STATUS */
 .status-block{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:1.5rem 2rem;margin:2rem 0}
 .status-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--purple);text-transform:uppercase;margin-bottom:0.5rem;display:flex;align-items:center;justify-content:space-between}
-.version-badge{font-family:'Space Mono',monospace;font-size:11px;padding:3px 8px;border-radius:4px;background:#1a1d35;border:1px solid var(--green);color:var(--green)}
-.status-intro{font-size:14px;color:var(--muted);margin-bottom:1.25rem;line-height:1.7;margin-top:0.75rem}
+.version-badge{font-family:'Space Mono',monospace;font-size:11px;padding:3px 8px;border-radius:4px;background:#0a1f15;border:1px solid var(--green);color:var(--green)}
+.status-intro{font-size:14px;color:var(--muted);margin:0.75rem 0 1.25rem;line-height:1.7}
 .status-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem}
 .status-col h4{font-size:12px;font-family:'Space Mono',monospace;color:var(--green);margin-bottom:8px;letter-spacing:1px}
 .status-col h4.focus{color:var(--purple2)}
@@ -46,21 +50,40 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
 .status-col ul li::before{content:'✅';position:absolute;left:0;font-size:11px}
 .status-col ul li.focus-item::before{content:'🔄'}
 .status-col ul li.plan-item::before{content:'📋'}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:3rem 0;border-bottom:1px solid var(--border)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:2.5rem 0;border-bottom:1px solid var(--border)}
 .stat{text-align:center}
 .stat-val{font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:var(--purple2)}
 .stat-label{font-size:12px;color:var(--muted);margin-top:4px}
-.section{padding:3rem 0;border-bottom:1px solid var(--border)}
+
+/* SECTION */
+.section{padding:2.5rem 0;border-bottom:1px solid var(--border)}
 .section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--purple);text-transform:uppercase;margin-bottom:1.5rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem}
-.card-icon{font-size:22px;margin-bottom:12px;color:var(--purple2)}
-.card h3{font-size:14px;font-weight:500;margin-bottom:6px;color:#fff}
-.card p{font-size:13px;color:var(--muted);line-height:1.6}
-.signals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+
+/* PROBLEM */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.problem-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem}
+.problem-card h3{font-size:14px;font-weight:500;color:var(--purple2);margin-bottom:8px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px}
+.problem-card p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* SIGNALS */
+.signals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-bottom:1.5rem}
 .signal{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px}
 .signal-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
 .signal-name{font-size:13px;color:var(--text)}
+
+/* VALIDATION TABLE */
+.validation-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:1rem}
+.validation-table th{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.validation-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text)}
+.validation-table tr:last-child td{border-bottom:none}
+.tag{padding:2px 8px;border-radius:3px;font-family:'Space Mono',monospace;font-size:11px}
+.tag-low{background:#0a1f15;color:#1D9E75}
+.tag-med{background:#1f1800;color:#EF9F27}
+.tag-crit{background:#1f0505;color:#E24B4A}
+
+/* RISK GRID */
 .risk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .risk{border-radius:8px;padding:14px;text-align:center;border:1px solid transparent}
 .risk-low{background:#0a1f15;border-color:#1D9E7540}
@@ -75,6 +98,15 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
 .risk-score{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;display:block;color:#fff}
 .risk-range{font-size:11px;color:var(--muted);display:block;margin-top:4px}
 .risk-action{font-size:12px;margin-top:6px;display:block}
+
+/* ARCH */
+.arch{display:flex;flex-direction:column;align-items:center;gap:4px;padding:1.5rem 0}
+.arch-box{font-family:'Space Mono',monospace;font-size:12px;padding:8px 24px;border-radius:6px;border:1px solid var(--border2);color:var(--text);min-width:260px;text-align:center}
+.arch-box.highlight{border-color:var(--purple2);color:var(--purple2);background:var(--bg2)}
+.arch-box.result{border-color:var(--green);color:var(--green);background:#0a1f15}
+.arch-arrow{color:var(--muted);font-size:16px}
+
+/* API */
 .api-block{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem;font-family:'Space Mono',monospace;font-size:12px;line-height:2}
 .api-method{color:var(--cyan)}
 .api-path{color:#fff}
@@ -85,214 +117,233 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
 .chain{font-family:'Space Mono',monospace;font-size:11px;padding:5px 12px;border-radius:4px;background:var(--bg3);border:1px solid var(--border2);color:var(--silver)}
 .chain.active{border-color:var(--green);color:var(--green)}
 .chain.future{opacity:0.45;border-style:dashed}
+
+/* POSITIONING */
+.positioning{background:var(--bg2);border:1px solid var(--purple);border-radius:12px;padding:1.5rem 2rem;margin:1.5rem 0}
+.positioning h3{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--purple2);margin-bottom:1rem;text-transform:uppercase}
+.positioning ul{list-style:none;padding:0}
+.positioning ul li{font-size:13px;color:var(--text);padding:4px 0;padding-left:20px;position:relative}
+.positioning ul li::before{content:'→';position:absolute;left:0;color:var(--purple2)}
+
+/* ROADMAP */
 .roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
 .phase{border:1px solid var(--border);border-radius:10px;padding:12px 14px}
-.phase.active{border-color:var(--green);background:var(--bg2)}
-.phase.designed{border-color:var(--purple);opacity:0.8}
+.phase.done{border-color:var(--green);background:var(--bg2)}
+.phase.active{border-color:var(--purple2);background:var(--bg2)}
 .phase.planned{opacity:0.5}
 .phase-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--purple2);margin-bottom:6px}
 .phase-title{font-size:13px;font-weight:500;color:#fff;margin-bottom:4px}
 .phase-status{font-family:'Space Mono',monospace;font-size:10px}
-.phase.active .phase-status{color:var(--green)}
-.phase.designed .phase-status{color:var(--purple2)}
+.phase.done .phase-status{color:var(--green)}
+.phase.active .phase-status{color:var(--purple2)}
 .phase.planned .phase-status{color:var(--muted)}
-.phase-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:6px;vertical-align:2px}
+
+/* ECO */
 .eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
 .eco-card{border:1px solid var(--border);border-radius:10px;padding:14px 16px}
 .eco-card.featured{border-color:var(--purple);background:var(--bg2)}
 .eco-name{font-size:14px;font-weight:500;color:#fff;margin-bottom:4px}
 .eco-desc{font-size:12px;color:var(--muted)}
 .eco-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--purple2);margin-bottom:8px;letter-spacing:1px}
+
+/* FOOTER */
 .footer{padding-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 .footer p{font-size:13px;color:var(--muted)}
 .footer-links{display:flex;gap:1.5rem}
 .footer-links a{font-family:'Space Mono',monospace;font-size:12px;color:var(--purple2);text-decoration:none}
 .footer-links a:hover{color:#fff}
+
 @media(max-width:600px){
-  .hero h1{font-size:28px}
   .stats{grid-template-columns:repeat(2,1fr)}
   .risk-grid{grid-template-columns:repeat(2,1fr)}
   .eco-grid{grid-template-columns:1fr}
   .status-cols{grid-template-columns:1fr}
+  .problem-grid{grid-template-columns:1fr}
+  .hero-tagline{gap:1rem}
 }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <div class="header">
-    <div class="logo-wrap">
-      <img src="logo.png" alt="NexusVeritas logo" class="logo-img">
-      <div class="logo-text">
-        <div class="logo-name">NEXUSVERITAS</div>
-        <div class="logo-sub">SOLANA SECURITY ENGINE</div>
-      </div>
-    </div>
+  <!-- HERO -->
+  <div class="hero">
+    <img src="logo.png" alt="NexusVeritas — Solana Risk Intelligence Engine" class="hero-logo">
     <div class="badges">
       <span class="badge active">Solana First</span>
-      <span class="badge active">v0.4.1 Live</span>
+      <span class="badge active">v0.7.0 Live</span>
+      <span class="badge active">8 Risk Signals</span>
       <span class="badge active">Mainnet</span>
       <span class="badge">Veritas Labs</span>
     </div>
-  </div>
-
-  <div class="hero">
-    <div class="hero-eyebrow">NEXUSVERITAS — WORKING SOLANA RISK ENGINE</div>
-    <h1>Know the <em>real risk</em> of any token<br><strong>before you trade.</strong></h1>
-    <p>Real-time Solana token security engine. On-chain behavioral analysis, holder intelligence, and deterministic risk scoring — connected to Solana mainnet.</p>
-    <p class="hero-chain">Launching on Solana. Designed for future multichain expansion.</p>
+    <div class="hero-tagline">
+      <span>Deterministic</span>
+      <span>Explainable</span>
+      <span>On-chain Verified</span>
+    </div>
     <div class="hero-api">GET /api/risk/solana/:address</div>
   </div>
 
+  <!-- MISSION -->
+  <div class="mission">
+    <p>Solana enables anyone to launch a token in minutes. The same openness that powers innovation also enables scams, rug pulls, fake liquidity, and coordinated market manipulation.</p>
+    <p><strong>NexusVeritas exists to provide deterministic, explainable, and verifiable risk intelligence for Solana assets.</strong></p>
+    <p>Our objective is simple: help users understand risk before capital is exposed.</p>
+  </div>
+
+  <!-- STATUS -->
   <div class="status-block">
     <div class="status-label">
       Project Status
-      <span class="version-badge">v0.4.1 — Mainnet Live</span>
+      <span class="version-badge">v0.7.0 — 8 Signals Live</span>
     </div>
-    <p class="status-intro">NexusVeritas Core v0.4.1 is connected to Solana mainnet. Risk Engine, SolanaAdapter, Burner Registry and API are implemented and tested on real tokens.</p>
+    <p class="status-intro">NexusVeritas Core v0.7.0 is connected to Solana mainnet. All 8 risk signals are implemented and validated on real tokens.</p>
     <div class="status-cols">
       <div class="status-col">
         <h4>Completed</h4>
         <ul>
-          <li>Architecture & system design</li>
-          <li>Threat model</li>
           <li>Risk Engine (7/7 tests)</li>
-          <li>SolanaAdapter</li>
           <li>Helius RPC integration</li>
-          <li>Real mainnet snapshots</li>
-          <li>Holder concentration analysis</li>
-          <li>Token age analysis</li>
-          <li>Burner Registry detection</li>
+          <li>Mint Authority</li>
+          <li>Freeze Authority</li>
+          <li>Holder Concentration</li>
+          <li>Token Age Analysis</li>
+          <li>Burner Registry</li>
+          <li>Creator Wallet Analysis</li>
+          <li>Whale Dominance</li>
+          <li>Liquidity Analysis</li>
           <li>Rate limiting & fail-safe</li>
-          <li>REST API v0.4.1</li>
         </ul>
       </div>
       <div class="status-col">
         <h4 class="focus">In Progress</h4>
         <ul>
-          <li class="focus-item">Creator Wallet Analysis</li>
-          <li class="focus-item">Whale Dominance</li>
           <li class="focus-item">Transfer Velocity</li>
+          <li class="focus-item">LP Lock Detection</li>
+          <li class="focus-item">Creator Token History</li>
         </ul>
       </div>
       <div class="status-col">
         <h4 class="planned">Planned</h4>
         <ul>
-          <li class="plan-item">Liquidity Depth</li>
+          <li class="plan-item">Jito Block-0 Analysis</li>
           <li class="plan-item">Visual Security Layer</li>
           <li class="plan-item">Browser Extension</li>
           <li class="plan-item">EVM Simulator</li>
-          <li class="plan-item">Jito Block-0 Analysis</li>
         </ul>
       </div>
     </div>
   </div>
 
+  <!-- STATS -->
   <div class="stats">
-    <div class="stat">
-      <div class="stat-val">7/7</div>
-      <div class="stat-label">Risk engine tests</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val">5+</div>
-      <div class="stat-label">Risk signals</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val">Live</div>
-      <div class="stat-label">Solana mainnet</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val">v0.4</div>
-      <div class="stat-label">Current version</div>
+    <div class="stat"><div class="stat-val">8</div><div class="stat-label">Risk signals</div></div>
+    <div class="stat"><div class="stat-val">7/7</div><div class="stat-label">Engine tests</div></div>
+    <div class="stat"><div class="stat-val">Live</div><div class="stat-label">Solana mainnet</div></div>
+    <div class="stat"><div class="stat-val">v0.7</div><div class="stat-label">Current version</div></div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="section">
+    <div class="section-label">The Problem</div>
+    <p style="font-size:15px;color:var(--muted);margin-bottom:1.5rem;line-height:1.8">Most token scanners focus on isolated technical checks. Modern scams combine multiple risk factors that individually may appear harmless — but together form a measurable risk profile.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <h3>Traditional scanners answer:</h3>
+        <p>"Is this token technically safe?"</p>
+      </div>
+      <div class="problem-card">
+        <h3>NexusVeritas answers:</h3>
+        <p>"Who created it? Who controls it? Can liquidity disappear? Does creator behavior indicate elevated risk?"</p>
+      </div>
     </div>
   </div>
 
+  <!-- SIGNALS -->
   <div class="section">
-    <div class="section-label">Risk signals</div>
+    <div class="section-label">Risk Signals (v0.7.0)</div>
     <div class="signals">
       <div class="signal"><div class="signal-dot"></div><div class="signal-name">Mint Authority Analysis</div></div>
       <div class="signal"><div class="signal-dot"></div><div class="signal-name">Freeze Authority Analysis</div></div>
       <div class="signal"><div class="signal-dot"></div><div class="signal-name">Holder Concentration</div></div>
       <div class="signal"><div class="signal-dot"></div><div class="signal-name">Token Age Analysis</div></div>
       <div class="signal"><div class="signal-dot"></div><div class="signal-name">Burner Wallet Detection</div></div>
-      <div class="signal"><div class="signal-dot"></div><div class="signal-name">Reliability Validation</div></div>
+      <div class="signal"><div class="signal-dot"></div><div class="signal-name">Creator Wallet Analysis</div></div>
+      <div class="signal"><div class="signal-dot"></div><div class="signal-name">Whale Dominance</div></div>
+      <div class="signal"><div class="signal-dot"></div><div class="signal-name">Liquidity Analysis</div></div>
     </div>
+    <table class="validation-table">
+      <thead><tr><th>Token</th><th>Score</th><th>Class</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>BONK</td><td>0</td><td><span class="tag tag-low">LOW</span></td><td>No risk factors detected</td></tr>
+        <tr><td>USDC</td><td>40</td><td><span class="tag tag-med">MEDIUM</span></td><td>Mint + Freeze authority (Circle controlled)</td></tr>
+        <tr><td>pump.fun token</td><td>85</td><td><span class="tag tag-crit">CRITICAL</span></td><td>Low liquidity + young token</td></tr>
+        <tr><td>Known scam cluster</td><td>100</td><td><span class="tag tag-crit">CRITICAL</span></td><td>Serial deployer + whale dominance + zero liquidity</td></tr>
+      </tbody>
+    </table>
   </div>
 
+  <!-- HOW IT WORKS -->
   <div class="section">
-    <div class="section-label">Core capabilities</div>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">⛓</div>
-        <h3>Multichain-agnostic core</h3>
-        <p>Unified risk format for Solana, Ethereum, Base, and BSC. One API, all chains.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">📊</div>
-        <h3>Universal risk engine</h3>
-        <p>Deterministic math. Classes LOW → CRITICAL. Hard Refuse on score 85+.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🔬</div>
-        <h3>Solana behavioral engine</h3>
-        <p>Jito Block-0 detection, burner clusters, sniper farms — native Solana signals.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">👁</div>
-        <h3>Visual security layer</h3>
-        <p>pHash look-alike detection. Hamming distance scoring to catch fake token logos.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">⚡</div>
-        <h3>EVM atomic simulator</h3>
-        <p>Buy → approve → sell simulation in one atomic context. Real tax exposure revealed.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🛡</div>
-        <h3>NexusVeritas Shield</h3>
-        <p>Chrome extension with UX security overlay. Blocks CRITICAL tokens at browser level.</p>
-      </div>
+    <div class="section-label">How Scoring Works</div>
+    <div class="arch">
+      <div class="arch-box">Token Address</div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box">Data Collection Layer (Helius RPC + DexScreener)</div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box highlight">Risk Signal Engine (8 independent signals)</div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box">Scoring Layer (deterministic weighted model)</div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box result">LOW / MEDIUM / HIGH / CRITICAL</div>
     </div>
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:0.5rem">Each triggered signal contributes independently. The same blockchain state always produces the same score.</p>
   </div>
 
+  <!-- RISK CLASSES -->
   <div class="section">
-    <div class="section-label">Risk classification</div>
+    <div class="section-label">Risk Classification</div>
     <div class="risk-grid">
       <div class="risk risk-low">
         <span class="risk-class">LOW</span>
         <span class="risk-score">0–19</span>
-        <span class="risk-range">Allowed</span>
+        <span class="risk-range">No significant risk</span>
         <span class="risk-action" style="color:#1D9E75">✓ Proceed</span>
       </div>
       <div class="risk risk-med">
         <span class="risk-class">MEDIUM</span>
         <span class="risk-score">20–59</span>
-        <span class="risk-range">Warning</span>
+        <span class="risk-range">Caution signals</span>
         <span class="risk-action" style="color:#EF9F27">⚠ Caution</span>
       </div>
       <div class="risk risk-high">
         <span class="risk-class">HIGH</span>
         <span class="risk-score">60–84</span>
-        <span class="risk-range">Strong warning</span>
+        <span class="risk-range">Risk indicators</span>
         <span class="risk-action" style="color:#F0997B">⛔ Risk high</span>
       </div>
       <div class="risk risk-crit">
         <span class="risk-class">CRITICAL</span>
         <span class="risk-score">85–100</span>
-        <span class="risk-range">Hard refuse</span>
+        <span class="risk-range">Extreme profile</span>
         <span class="risk-action" style="color:#E24B4A">✗ Blocked</span>
       </div>
     </div>
   </div>
 
+  <!-- API -->
   <div class="section">
     <div class="section-label">API</div>
     <div class="api-block">
       <span class="api-method">GET </span><span class="api-path">/api/risk/solana/:address</span><br><br>
       {<br>
-      &nbsp;&nbsp;<span class="api-key">"score"</span>: <span class="api-val">40</span>,<br>
-      &nbsp;&nbsp;<span class="api-key">"class"</span>: <span class="api-str">"MEDIUM"</span>,<br>
-      &nbsp;&nbsp;<span class="api-key">"reasons"</span>: [<span class="api-str">"Mint authority enabled"</span>],<br>
+      &nbsp;&nbsp;<span class="api-key">"score"</span>: <span class="api-val">100</span>,<br>
+      &nbsp;&nbsp;<span class="api-key">"class"</span>: <span class="api-str">"CRITICAL"</span>,<br>
+      &nbsp;&nbsp;<span class="api-key">"reasons"</span>: [<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="api-str">"Serial token deployer — creator launched 96+ tokens"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="api-str">"Single whale controls 76% of supply"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="api-str">"No liquidity pool found"</span><br>
+      &nbsp;&nbsp;],<br>
       &nbsp;&nbsp;<span class="api-key">"confidence"</span>: <span class="api-str">"standard"</span><br>
       }
     </div>
@@ -304,39 +355,39 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
     </div>
   </div>
 
+  <!-- POSITIONING -->
+  <div class="section">
+    <div class="section-label">Positioning</div>
+    <div class="positioning">
+      <h3>Key Principles</h3>
+      <ul>
+        <li>No AI-generated scores</li>
+        <li>Explainable risk factors</li>
+        <li>Reproducible results</li>
+        <li>On-chain verification</li>
+        <li>Independent signal architecture</li>
+        <li>Fail-safe operation</li>
+      </ul>
+    </div>
+    <p style="font-size:13px;color:var(--muted);font-style:italic;text-align:center;margin-top:1rem">Every risk signal is derived from observable blockchain state.</p>
+  </div>
+
+  <!-- ROADMAP -->
   <div class="section">
     <div class="section-label">Roadmap</div>
     <div class="roadmap">
-      <div class="phase active">
-        <div class="phase-num">v0.5</div>
-        <div class="phase-title"><span class="phase-dot"></span>Creator Wallet</div>
-        <div class="phase-status">In Progress</div>
-      </div>
-      <div class="phase designed">
-        <div class="phase-num">v0.6</div>
-        <div class="phase-title">Whale Dominance</div>
-        <div class="phase-status">Designed</div>
-      </div>
-      <div class="phase designed">
-        <div class="phase-num">v0.7</div>
-        <div class="phase-title">Transfer Velocity</div>
-        <div class="phase-status">Designed</div>
-      </div>
-      <div class="phase planned">
-        <div class="phase-num">v0.8</div>
-        <div class="phase-title">Liquidity Depth</div>
-        <div class="phase-status">Planned</div>
-      </div>
-      <div class="phase planned">
-        <div class="phase-num">v1.0</div>
-        <div class="phase-title">Jito Block-0</div>
-        <div class="phase-status">Planned</div>
-      </div>
+      <div class="phase done"><div class="phase-num">v0.1–v0.7</div><div class="phase-title">Core Engine</div><div class="phase-status">Completed ✓</div></div>
+      <div class="phase active"><div class="phase-num">v0.8</div><div class="phase-title">Behavioral Intelligence</div><div class="phase-status">In Progress</div></div>
+      <div class="phase planned"><div class="phase-num">v0.9</div><div class="phase-title">Composite Intelligence</div><div class="phase-status">Planned</div></div>
+      <div class="phase planned"><div class="phase-num">v1.0</div><div class="phase-title">Production Release</div><div class="phase-status">Planned</div></div>
+      <div class="phase planned"><div class="phase-num">v1.1</div><div class="phase-title">Jito Block-0</div><div class="phase-status">Planned</div></div>
+      <div class="phase planned"><div class="phase-num">v1.x</div><div class="phase-title">Browser Extension</div><div class="phase-status">Planned</div></div>
     </div>
   </div>
 
+  <!-- ECOSYSTEM -->
   <div class="section">
-    <div class="section-label">Ecosystem</div>
+    <div class="section-label">Veritas Ecosystem</div>
     <div class="eco-grid">
       <div class="eco-card">
         <div class="eco-tag">PROTOCOL</div>
@@ -346,7 +397,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
       <div class="eco-card featured">
         <div class="eco-tag">INFRASTRUCTURE</div>
         <div class="eco-name">NexusVeritas</div>
-        <div class="eco-desc">Solana-first security engine. Real-time risk scoring for any token on Solana mainnet.</div>
+        <div class="eco-desc">Solana Risk Intelligence Engine. 8 signals. Deterministic scoring. Mainnet live.</div>
       </div>
       <div class="eco-card">
         <div class="eco-tag">TOKEN</div>
@@ -357,7 +408,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
   </div>
 
   <div class="footer">
-    <p>Veritas Labs</p>
+    <p>Veritas Labs · 2026</p>
     <div class="footer-links">
       <a href="https://t.me/cryptaveritas">Telegram</a>
       <a href="https://github.com/cryptaveritas">GitHub</a>
