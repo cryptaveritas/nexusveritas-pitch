@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operator A — NexusVeritas Operator Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000000;--bg2:#0d0e1a;--bg3:#13152a;
+  --border:#ffffff15;--border2:#ffffff25;
+  --red:#E24B4A;--red2:#ff6b6b;
+  --purple:#7c5cbf;--purple2:#a07de0;
+  --cyan:#4fc3f7;--silver:#c0c8e0;
+  --text:#e8eaf6;--muted:#8890b0;--green:#1D9E75;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh}
+.page{max-width:960px;margin:0 auto;padding:0 2rem 4rem}
+
+.nav{padding:1.5rem 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Space Mono',monospace;font-size:13px;color:var(--purple2)}
+.nav-back{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none}
+.nav-back:hover{color:var(--text)}
+
+.hero{padding:3rem 0 2rem;border-bottom:1px solid var(--border)}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.operator-id{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:0.5rem}
+.operator-name{font-size:32px;font-weight:500;color:#fff;margin-bottom:0.5rem}
+.operator-wallet{font-family:'Space Mono',monospace;font-size:12px;color:var(--cyan);word-break:break-all;margin-bottom:1rem}
+.status-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:11px;padding:5px 12px;border-radius:4px;border:1px solid var(--red);color:var(--red);background:#1f0505}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--red)}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:2rem 0;border-bottom:1px solid var(--border)}
+.stat{text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem}
+.stat-val{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--red)}
+.stat-label{font-size:11px;color:var(--muted);margin-top:4px}
+
+.section{padding:2rem 0;border-bottom:1px solid var(--border)}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--purple);text-transform:uppercase;margin-bottom:1.5rem}
+
+.launches{display:flex;flex-direction:column;gap:10px}
+.launch{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.launch:hover{border-color:var(--border2)}
+.launch-case{font-family:'Space Mono',monospace;font-size:11px;color:var(--purple2)}
+.launch-addr{font-family:'Space Mono',monospace;font-size:12px;color:var(--cyan)}
+.launch-meta{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.launch-cluster{font-size:12px;color:var(--muted)}
+.tag{padding:2px 8px;border-radius:3px;font-family:'Space Mono',monospace;font-size:11px}
+.tag-med{background:#1f1800;color:#EF9F27}
+.tag-crit{background:#1f0505;color:#E24B4A}
+
+.pattern-box{background:var(--bg2);border:1px solid var(--red);border-radius:12px;padding:1.5rem 2rem;margin-bottom:1rem}
+.pattern-box h3{font-size:14px;font-weight:500;color:#fff;margin-bottom:1rem}
+.pattern-list{list-style:none;padding:0}
+.pattern-list li{font-size:13px;color:var(--muted);padding:4px 0;padding-left:20px;position:relative}
+.pattern-list li::before{content:'→';position:absolute;left:0;color:var(--red)}
+
+.finding{background:var(--bg3);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:1.25rem 1.5rem;margin-top:1rem}
+.finding p{font-size:14px;color:var(--muted);line-height:1.8}
+.finding strong{color:var(--text)}
+
+.timeline{display:flex;flex-direction:column;gap:0}
+.timeline-item{display:flex;gap:1.5rem;padding:1rem 0;border-bottom:1px solid var(--border)}
+.timeline-item:last-child{border-bottom:none}
+.timeline-dot{width:10px;height:10px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:6px}
+.timeline-content h4{font-size:13px;font-weight:500;color:#fff;margin-bottom:4px}
+.timeline-content p{font-size:12px;color:var(--muted)}
+
+.footer{padding-top:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer p{font-size:13px;color:var(--muted)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-family:'Space Mono',monospace;font-size:12px;color:var(--purple2);text-decoration:none}
+
+@media(max-width:600px){
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .hero-top{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav">
+    <span class="nav-logo">NexusVeritas</span>
+    <a href="../index.html" class="nav-back">← Operator Intelligence</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="operator-id">OPERATOR PROFILE · CONFIRMED RECURRING</div>
+        <div class="operator-name">Operator A</div>
+        <div class="operator-wallet">AgmLJBMDCqWynYnQiPCuj9ewsNNsBJXyzoUhD9LJzN51</div>
+        <span class="status-badge"><span class="status-dot"></span>Under Observation</span>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:4px">First seen</div>
+        <div style="font-size:14px;color:var(--text)">May 2026</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-top:8px;margin-bottom:4px">Last seen</div>
+        <div style="font-size:14px;color:var(--text)">June 2026</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-top:8px;margin-bottom:4px">Confidence</div>
+        <div style="font-size:14px;color:var(--green)">High</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-val">4</div><div class="stat-label">Linked launches</div></div>
+    <div class="stat"><div class="stat-val">733</div><div class="stat-label">SOL balance</div></div>
+    <div class="stat"><div class="stat-val">1000+</div><div class="stat-label">Transactions</div></div>
+    <div class="stat"><div class="stat-val" style="color:var(--purple2)">MEDIUM</div><div class="stat-label">Avg risk score</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Linked Token Launches</div>
+    <div class="launches">
+      <div class="launch">
+        <div>
+          <div class="launch-case">CASE_001</div>
+          <div class="launch-addr">SV151D5pjygAKA8aJJcKzm4wFnRX5G92Fye94jQJk7g</div>
+        </div>
+        <div class="launch-meta">
+          <span class="launch-cluster">5 wallets · 10% supply</span>
+          <span class="tag tag-med">MEDIUM · 20</span>
+        </div>
+      </div>
+      <div class="launch">
+        <div>
+          <div class="launch-case">CASE_006</div>
+          <div class="launch-addr">CXwQDqJzrSdZAMso55cUeyme9uPf831Zcq5ymTwR5xh</div>
+        </div>
+        <div class="launch-meta">
+          <span class="launch-cluster">3 wallets · 7% supply</span>
+          <span class="tag tag-med">MEDIUM · 35</span>
+        </div>
+      </div>
+      <div class="launch">
+        <div>
+          <div class="launch-case">CASE_022</div>
+          <div class="launch-addr">DBYp1sxGP5VhEri6NHPytSTnpx7vQvDguwNxyAWEjupx</div>
+        </div>
+        <div class="launch-meta">
+          <span class="launch-cluster">4 wallets · 9% supply</span>
+          <span class="tag tag-med">MEDIUM · 55</span>
+        </div>
+      </div>
+      <div class="launch" style="border-color:var(--red)">
+        <div>
+          <div class="launch-case">CASE_036 · LATEST</div>
+          <div class="launch-addr">dekNoN3D8mXa4JHLwTbVXz8aPAyJUkk443UjcSpJKi4</div>
+        </div>
+        <div class="launch-meta">
+          <span class="launch-cluster">3 wallets · 5% supply</span>
+          <span class="tag tag-med">MEDIUM · 45</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Observed Pattern</div>
+    <div class="pattern-box">
+      <h3>Typical launch structure</h3>
+      <ul class="pattern-list">
+        <li>Insider cluster of 3–5 wallets funded from this wallet</li>
+        <li>Cluster controls 5–10% of token supply</li>
+        <li>LP consistently left unlocked</li>
+        <li>All linked tokens scored MEDIUM — below CRITICAL threshold</li>
+        <li>Associated with serial deployer (47+ token history)</li>
+      </ul>
+    </div>
+    <div class="finding">
+      <p><strong>Key finding:</strong> All 4 tokens scored MEDIUM rather than CRITICAL. The operator appears to deliberately calibrate insider cluster size and supply coverage to avoid triggering high-risk thresholds in conventional scanners. <strong>This pattern would be completely invisible without cross-token behavioral analysis.</strong></p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Investigation Timeline</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>May 2026 — First detection (CASE_001)</h4>
+          <p>Funding wallet identified as source for 5-wallet insider cluster controlling 10% of supply.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>May 2026 — Second link confirmed (CASE_006)</h4>
+          <p>Same funding wallet appeared in separate token. Recurring operator hypothesis formed.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>June 2026 — Third token linked (CASE_022)</h4>
+          <p>Third independent launch confirmed. Operator A status upgraded to confirmed recurring.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-content">
+          <h4>June 2026 — Fourth launch detected (CASE_036)</h4>
+          <p>Fourth token linked to same funding wallet. Strongest recurring operator evidence in dataset.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>NexusVeritas Operator Intelligence · 2026</p>
+    <div class="footer-links">
+      <a href="https://github.com/cryptaveritas/nexusveritas-api/tree/main/docs/operators">GitHub</a>
+      <a href="https://github.com/cryptaveritas/nexusveritas-api/blob/main/docs/RESEARCH_REPORT_2.md">Report #2</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
