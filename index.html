@@ -143,7 +143,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
     </div>
     <p class="hero-statement">
       Most tools analyze tokens.<br>
-      <strong>NexusVeritas analyzes the behavior and relationships behind them.</strong>
+      <strong>NexusVeritas analyzes the behavior and relationships behind them.</strong><br>
+      <span style="color:var(--purple2);font-size:13px;font-family:'Space Mono',monospace">42 case studies &middot; 7 operators &middot; 1 recurring operator confirmed</span>
     </p>
     <div class="hero-api">GET /api/risk/solana/:address</div>
   </div>
@@ -156,7 +157,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
 
   <div class="new-block">
     <div class="new-label">New in v0.8.0</div>
-    <h3>🕸 Insider Network Detection</h3>
+    <h3>Insider Network Detection</h3>
     <p>NexusVeritas now analyzes funding relationships between top holders. If multiple top holders were funded by the same source wallet, the engine identifies a potential insider cluster and applies graduated risk scoring based on cluster size and supply coverage.</p>
     <div class="code-block">
 {<br>
@@ -165,6 +166,31 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
 &nbsp;&nbsp;<span class="c-key">"reason"</span>: <span class="c-str">"6 top holders controlling 43% of supply share a common funding source"</span><br>
 }
     </div>
+  </div>
+
+  <div class="new-block" style="border-color:#E24B4A">
+    <div class="new-label" style="color:#E24B4A">OPERATOR INTELLIGENCE</div>
+    <h3>Recurring Operators Detected</h3>
+    <p>After 42 investigations, the same operator appeared across 4 independent token launches. One funding wallet. Four separate tokens. Invisible to conventional scanners — detected only through behavioral wallet analysis.</p>
+    <div class="code-block">
+<span class="c-comment">// Operator A — confirmed recurring</span><br>
+<span class="c-key">"fundingWallet"</span>: <span class="c-str">"AgmLJBMD...LJzN51"</span>,<br>
+<span class="c-key">"linkedLaunches"</span>: <span class="c-num">4</span>,<br>
+<span class="c-key">"cases"</span>: [<span class="c-str">"CASE_001"</span>, <span class="c-str">"CASE_006"</span>, <span class="c-str">"CASE_022"</span>, <span class="c-str">"CASE_036"</span>],<br>
+<span class="c-key">"status"</span>: <span class="c-str">"recurring_operator"</span>
+    </div>
+  </div>
+
+  <div class="new-block">
+    <div class="new-label">RESEARCH REPORTS</div>
+    <h3>Published Research</h3>
+    <p><strong style="color:#a07de0">Report #1 — From Tokens to Operators:</strong> First 20 cases. Insider network detection methodology. Key finding: insider clusters exist even in low-risk tokens.</p>
+    <p><strong style="color:#a07de0">Report #2 — The Rise of Recurring Operators:</strong> 42 cases. Confirmed recurring operator (4 linked launches). Records: 74% insider coverage, 77+ serial deployer.</p>
+    <p style="margin-top:0.5rem;font-size:13px">
+      <a href="https://github.com/cryptaveritas/nexusveritas-api/blob/main/docs/RESEARCH_REPORT_1.md" style="color:var(--cyan);text-decoration:none">Report #1 &rarr;</a>
+      &nbsp;&nbsp;
+      <a href="https://github.com/cryptaveritas/nexusveritas-api/blob/main/docs/RESEARCH_REPORT_2.md" style="color:var(--cyan);text-decoration:none">Report #2 &rarr;</a>
+    </p>
   </div>
 
   <div class="status-block">
@@ -189,7 +215,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
           <li>Liquidity Analysis</li>
           <li>Insider Network Detection</li>
           <li>Confidence Breakdown</li>
-          <li>Rate limiting & fail-safe</li>
+          <li>Rate limiting &amp; fail-safe</li>
         </ul>
       </div>
       <div class="status-col">
@@ -214,10 +240,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="stat-val">9</div><div class="stat-label">Risk signals</div></div>
-    <div class="stat"><div class="stat-val">Live</div><div class="stat-label">Solana mainnet</div></div>
-    <div class="stat"><div class="stat-val">Free</div><div class="stat-label">Open source</div></div>
-    <div class="stat"><div class="stat-val">v0.8</div><div class="stat-label">Current version</div></div>
+    <div class="stat"><div class="stat-val">42</div><div class="stat-label">Case studies</div></div>
+    <div class="stat"><div class="stat-val">7</div><div class="stat-label">Operators identified</div></div>
+    <div class="stat"><div class="stat-val">22+</div><div class="stat-label">Insider networks</div></div>
+    <div class="stat"><div class="stat-val">74%</div><div class="stat-label">Coverage record</div></div>
   </div>
 
   <div class="section">
@@ -247,10 +273,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
   <div class="section">
     <div class="section-label">Risk Classification</div>
     <div class="risk-grid">
-      <div class="risk risk-low"><span class="risk-class">LOW</span><span class="risk-score">0–19</span><span class="risk-range">No significant risk</span><span class="risk-action" style="color:#1D9E75">✓ Proceed</span></div>
-      <div class="risk risk-med"><span class="risk-class">MEDIUM</span><span class="risk-score">20–59</span><span class="risk-range">Caution signals</span><span class="risk-action" style="color:#EF9F27">⚠ Caution</span></div>
-      <div class="risk risk-high"><span class="risk-class">HIGH</span><span class="risk-score">60–84</span><span class="risk-range">Risk indicators</span><span class="risk-action" style="color:#F0997B">⛔ Risk high</span></div>
-      <div class="risk risk-crit"><span class="risk-class">CRITICAL</span><span class="risk-score">85–100</span><span class="risk-range">Extreme profile</span><span class="risk-action" style="color:#E24B4A">✗ Blocked</span></div>
+      <div class="risk risk-low"><span class="risk-class">LOW</span><span class="risk-score">0&ndash;19</span><span class="risk-range">No significant risk</span><span class="risk-action" style="color:#1D9E75">&#10003; Proceed</span></div>
+      <div class="risk risk-med"><span class="risk-class">MEDIUM</span><span class="risk-score">20&ndash;59</span><span class="risk-range">Caution signals</span><span class="risk-action" style="color:#EF9F27">&#9888; Caution</span></div>
+      <div class="risk risk-high"><span class="risk-class">HIGH</span><span class="risk-score">60&ndash;84</span><span class="risk-range">Risk indicators</span><span class="risk-action" style="color:#F0997B">&#9940; Risk high</span></div>
+      <div class="risk risk-crit"><span class="risk-class">CRITICAL</span><span class="risk-score">85&ndash;100</span><span class="risk-range">Extreme profile</span><span class="risk-action" style="color:#E24B4A">&#10007; Blocked</span></div>
     </div>
   </div>
 
@@ -272,7 +298,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
   <div class="section">
     <div class="section-label">Roadmap</div>
     <div class="roadmap">
-      <div class="phase done"><div class="phase-num">v0.1–v0.8</div><div class="phase-title">Core + Behavioral Engine</div><div class="phase-status">Completed ✓</div></div>
+      <div class="phase done"><div class="phase-num">v0.1&ndash;v0.8</div><div class="phase-title">Core + Behavioral Engine</div><div class="phase-status">Completed &#10003;</div></div>
       <div class="phase active"><div class="phase-num">v0.9</div><div class="phase-title">Risk Score History</div><div class="phase-status">In Progress</div></div>
       <div class="phase planned"><div class="phase-num">v1.0</div><div class="phase-title">Early Dump Detection</div><div class="phase-status">Planned</div></div>
       <div class="phase planned"><div class="phase-num">v1.1</div><div class="phase-title">GET /risk/creator</div><div class="phase-status">Planned</div></div>
@@ -290,7 +316,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;lin
   </div>
 
   <div class="footer">
-    <p>Veritas Labs · 2026</p>
+    <p>Veritas Labs &middot; 2026</p>
     <div class="footer-links">
       <a href="https://t.me/cryptaveritas">Telegram</a>
       <a href="https://github.com/cryptaveritas">GitHub</a>
